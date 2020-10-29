@@ -1,0 +1,42 @@
+From 60a033abfc0721d298172e2076e9d0d288b9f97f Mon Sep 17 00:00:00 2001
+From: Niels Breet <niels.breet@jolla.com>
+Date: Tue, 27 Oct 2020 16:20:26 +0200
+Subject: [PATCH] Disable mm-common checking as we do not use it
+
+---
+ meson.build | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 5a0b7a8..1f5b693 100644
+--- a/meson.build
++++ b/meson.build
+@@ -103,10 +103,10 @@ endif
+ 
+ # Some dependencies are required only in maintainer mode and/or
+ # if documentation shall be built.
+-mm_common_get = find_program('mm-common-get', required: false)
+-if maintainer_mode and not mm_common_get.found()
+-  error('mm-common-get not found. mm-common >= 1.0.0 is required.')
+-endif
++#mm_common_get = find_program('mm-common-get', required: false)
++#if maintainer_mode and not mm_common_get.found()
++#  error('mm-common-get not found. mm-common >= 1.0.0 is required.')
++#endif
+ m4 = find_program('m4', required: maintainer_mode) # For building C++ code
+ perl = find_program('perl', required: build_documentation)
+ doxygen = find_program('doxygen', required: build_documentation)
+@@ -121,8 +121,8 @@ tutorial_custom_cmd = project_source_root / 'tools' / 'tutorial-custom-cmd.py'
+ 
+ if maintainer_mode
+   # Copy files to untracked/build_scripts and untracked/docs.
+-  run_command(mm_common_get, '--force', script_dir,
+-    project_source_root / 'untracked' / 'docs')
++#  run_command(mm_common_get, '--force', script_dir,
++#    project_source_root / 'untracked' / 'docs')
+ else
+   cmd_py = '''
+ import os
+-- 
+1.9.1
+
